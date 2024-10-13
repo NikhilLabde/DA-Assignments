@@ -1,0 +1,642 @@
+Day 4.1 >
+
+mysql> SELECT ordernumber, status, CASE WHEN comments IS NULL THEN '_'  ELSE comments END AS comments FROM orders WHERE status = 'shipped';
++-------------+---------+---------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| ordernumber | status  | comments
+                            |
++-------------+---------+---------------------------------------------------------------------------------------------------------------------------------------------------------------+
+|       10100 | Shipped | _
+                            |
+|       10101 | Shipped | Check on availability.
+                            |
+|       10102 | Shipped | _
+                            |
+|       10103 | Shipped | _
+                            |
+|       10104 | Shipped | _
+                            |
+|       10105 | Shipped | _
+                            |
+|       10106 | Shipped | _
+                            |
+|       10107 | Shipped | Difficult to negotiate with customer. We need more marketing materials
+                            |
+|       10108 | Shipped | _
+                            |
+|       10109 | Shipped | Customer requested that FedEx Ground is used for this shipping
+                            |
+|       10110 | Shipped | _
+                            |
+|       10111 | Shipped | _
+                            |
+|       10112 | Shipped | Customer requested that ad materials (such as posters, pamphlets) be included in the shippment
+                            |
+|       10113 | Shipped | _
+                            |
+|       10114 | Shipped | _
+                            |
+|       10115 | Shipped | _
+                            |
+|       10116 | Shipped | _
+                            |
+|       10117 | Shipped | _
+                            |
+|       10118 | Shipped | Customer has worked with some of our vendors in the past and is aware of their MSRP
+                            |
+|       10119 | Shipped | _
+                            |
+|       10120 | Shipped | _
+                            |
+|       10121 | Shipped | _
+                            |
+|       10122 | Shipped | _
+                            |
+|       10123 | Shipped | _
+                            |
+|       10124 | Shipped | Customer very concerned about the exact color of the models. There is high risk that he may dispute the order because there is a slight color mismatch        |
+|       10125 | Shipped | _
+                            |
+|       10126 | Shipped | _
+                            |
+|       10127 | Shipped | Customer requested special shippment. The instructions were passed along to the warehouse
+                            |
+|       10128 | Shipped | _
+                            |
+|       10129 | Shipped | _
+                            |
+|       10130 | Shipped | _
+                            |
+|       10131 | Shipped | _
+                            |
+|       10132 | Shipped | _
+                            |
+|       10133 | Shipped | _
+                            |
+|       10134 | Shipped | _
+                            |
+|       10135 | Shipped | _
+                            |
+|       10136 | Shipped | Customer is interested in buying more Ferrari models
+                            |
+|       10137 | Shipped | _
+                            |
+|       10138 | Shipped | _
+                            |
+|       10139 | Shipped | _
+                            |
+|       10140 | Shipped | _
+                            |
+|       10141 | Shipped | _
+                            |
+|       10142 | Shipped | _
+                            |
+|       10143 | Shipped | Can we deliver the new Ford Mustang models by end-of-quarter?
+                            |
+|       10144 | Shipped | _
+                            |
+|       10145 | Shipped | _
+                            |
+|       10146 | Shipped | _
+                            |
+|       10147 | Shipped | _
+                            |
+|       10148 | Shipped | They want to reevaluate their terms agreement with Finance.
+                            |
+|       10149 | Shipped | _
+                            |
+|       10150 | Shipped | They want to reevaluate their terms agreement with Finance.
+                            |
+|       10151 | Shipped | _
+                            |
+|       10152 | Shipped | _
+                            |
+|       10153 | Shipped | _                                                                                                                                                             |
+|       10154 | Shipped | _
+                            |
+|       10155 | Shipped | _
+                            |
+|       10156 | Shipped | _
+                            |
+|       10157 | Shipped | _
+                            |
+|       10158 | Shipped | _
+                            |
+|       10159 | Shipped | _
+                            |
+|       10160 | Shipped | _
+                            |
+|       10161 | Shipped | _
+                            |
+|       10162 | Shipped | _
+                            |
+|       10163 | Shipped | _
+                            |
+|       10165 | Shipped | This order was on hold because customers's credit limit had been exceeded. Order will ship when payment is received
+                            |
+|       10166 | Shipped | _
+                            |
+|       10168 | Shipped | _
+                            |
+|       10169 | Shipped | _
+                            |
+|       10170 | Shipped | _
+                            |
+|       10171 | Shipped | _
+                            |
+|       10172 | Shipped | _                                                                                                                                                             |
+|       10173 | Shipped | Cautious optimism. We have happy customers here, if we can keep them well stocked.  I need all the information I can get on the planned shippments of Porches |
+|       10174 | Shipped | _
+                            |
+|       10175 | Shipped | _
+                            |
+|       10176 | Shipped | _
+                            |
+|       10177 | Shipped | _
+                            |
+|       10178 | Shipped | Custom shipping instructions sent to warehouse
+                            |
+|       10180 | Shipped | _
+                            |
+|       10181 | Shipped | _
+                            |
+|       10182 | Shipped | _
+                            |
+|       10183 | Shipped | We need to keep in close contact with their Marketing VP. He is the decision maker for all their purchases.
+                            |
+|       10184 | Shipped | _
+                            |
+|       10185 | Shipped | _
+                            |
+|       10186 | Shipped | They want to reevaluate their terms agreement with the VP of Sales
+                            |
+|       10187 | Shipped | _
+                            |
+|       10188 | Shipped | _
+                            |
+|       10189 | Shipped | They want to reevaluate their terms agreement with Finance.                                                                                                   |
+|       10190 | Shipped | _
+                            |
+|       10191 | Shipped | We must be cautions with this customer. Their VP of Sales resigned. Company may be heading down.
+                            |
+|       10192 | Shipped | _
+                            |
+|       10193 | Shipped | _
+                            |
+|       10194 | Shipped | _
+                            |
+|       10195 | Shipped | _
+                            |
+|       10196 | Shipped | _
+                            |
+|       10197 | Shipped | Customer inquired about remote controlled models and gold models.
+                            |
+|       10198 | Shipped | _
+                            |
+|       10199 | Shipped | _                                                                                                                                                             |
+|       10200 | Shipped | _
+                            |
+|       10201 | Shipped | _
+                            |
+|       10202 | Shipped | _
+                            |
+|       10203 | Shipped | _
+                            |
+|       10204 | Shipped | _
+                            |
+|       10205 | Shipped |  I need all the information I can get on our competitors.
+                            |
+|       10206 | Shipped | Can we renegotiate this one?
+                            |
+|       10207 | Shipped | Check on availability.
+                            |
+|       10208 | Shipped | _
+                            |
+|       10209 | Shipped | _
+                            |
+|       10210 | Shipped | _
+                            |
+|       10211 | Shipped | _
+                            |
+|       10212 | Shipped | _
+                            |
+|       10213 | Shipped | Difficult to negotiate with customer. We need more marketing materials
+                            |
+|       10214 | Shipped | _
+                            |
+|       10215 | Shipped | Customer requested that FedEx Ground is used for this shipping
+                            |
+|       10216 | Shipped | _
+                            |
+|       10217 | Shipped | _
+                            |
+|       10218 | Shipped | Customer requested that ad materials (such as posters, pamphlets) be included in the shippment
+                            |
+|       10219 | Shipped | _
+                            |
+|       10220 | Shipped | _
+                            |
+|       10221 | Shipped | _
+                            |
+|       10222 | Shipped | _
+                            |
+|       10223 | Shipped | _
+                            |
+|       10224 | Shipped | Customer has worked with some of our vendors in the past and is aware of their MSRP
+                            |
+|       10225 | Shipped | _
+                            |
+|       10226 | Shipped | _
+                            |
+|       10227 | Shipped | _
+                            |
+|       10228 | Shipped | _
+                            |
+|       10229 | Shipped | _
+                            |
+|       10230 | Shipped | Customer very concerned about the exact color of the models. There is high risk that he may dispute the order because there is a slight color mismatch        |
+|       10231 | Shipped | _
+                            |
+|       10232 | Shipped | _
+                            |
+|       10233 | Shipped | Customer requested special shippment. The instructions were passed along to the warehouse
+                            |
+|       10234 | Shipped | _
+                            |
+|       10235 | Shipped | _                                                                                                                                                             |
+|       10236 | Shipped | _
+                            |
+|       10237 | Shipped | _
+                            |
+|       10238 | Shipped | _
+                            |
+|       10239 | Shipped | _
+                            |
+|       10240 | Shipped | _
+                            |
+|       10241 | Shipped | _
+                            |
+|       10242 | Shipped | Customer is interested in buying more Ferrari models
+                            |
+|       10243 | Shipped | _                                                                                                                                                             |
+|       10244 | Shipped | _
+                            |
+|       10245 | Shipped | _
+                            |
+|       10246 | Shipped | _
+                            |
+|       10247 | Shipped | _
+                            |
+|       10249 | Shipped | Can we deliver the new Ford Mustang models by end-of-quarter?
+                            |
+|       10250 | Shipped | _
+                            |
+|       10251 | Shipped | _
+                            |
+|       10252 | Shipped | _
+                            |
+|       10254 | Shipped | Customer requested that DHL is used for this shipping
+                            |
+|       10255 | Shipped | _
+                            |
+|       10256 | Shipped | _
+                            |
+|       10257 | Shipped | _
+                            |
+|       10258 | Shipped | _
+                            |
+|       10259 | Shipped | _
+                            |
+|       10261 | Shipped | _
+                            |
+|       10263 | Shipped | _
+                            |
+|       10264 | Shipped | Customer will send a truck to our local warehouse on 7/1/2004
+                            |
+|       10265 | Shipped | _
+                            |
+|       10266 | Shipped | _
+                            |
+|       10267 | Shipped | _
+                            |
+|       10268 | Shipped | _
+                            |
+|       10269 | Shipped | _
+                            |
+|       10270 | Shipped | Can we renegotiate this one?                                                                                                                                  |
+|       10271 | Shipped | _
+                            |
+|       10272 | Shipped | _
+                            |
+|       10273 | Shipped | _
+                            |
+|       10274 | Shipped | _
+                            |
+|       10275 | Shipped | _
+                            |
+|       10276 | Shipped | _
+                            |
+|       10277 | Shipped | _                                                                                                                                                             |
+|       10278 | Shipped | _
+                            |
+|       10279 | Shipped | Cautious optimism. We have happy customers here, if we can keep them well stocked.  I need all the information I can get on the planned shippments of Porches |
+|       10280 | Shipped | _
+                            |
+|       10281 | Shipped | _
+                            |
+|       10282 | Shipped | _
+                            |
+|       10283 | Shipped | _
+                            |
+|       10284 | Shipped | Custom shipping instructions sent to warehouse
+                            |
+|       10285 | Shipped | _
+                            |
+|       10286 | Shipped | _
+                            |
+|       10287 | Shipped | _
+                            |
+|       10288 | Shipped | _
+                            |
+|       10289 | Shipped | We need to keep in close contact with their Marketing VP. He is the decision maker for all their purchases.
+                            |
+|       10290 | Shipped | _                                                                                                                                                             |
+|       10291 | Shipped | _
+                            |
+|       10292 | Shipped | They want to reevaluate their terms agreement with Finance.
+                            |
+|       10293 | Shipped | _
+                            |
+|       10294 | Shipped | _
+                            |
+|       10295 | Shipped | They want to reevaluate their terms agreement with Finance.
+                            |
+|       10296 | Shipped | _
+                            |
+|       10297 | Shipped | We must be cautions with this customer. Their VP of Sales resigned. Company may be heading down.
+                            |
+|       10298 | Shipped | _
+                            |
+|       10299 | Shipped | _
+                            |
+|       10300 | Shipped | _
+                            |
+|       10301 | Shipped | _
+                            |
+|       10302 | Shipped | _
+                            |
+|       10303 | Shipped | Customer inquired about remote controlled models and gold models.
+                            |
+|       10304 | Shipped | _
+                            |
+|       10305 | Shipped | Check on availability.
+                            |
+|       10306 | Shipped | _
+                            |
+|       10307 | Shipped | _
+                            |
+|       10308 | Shipped | Customer requested that FedEx Ground is used for this shipping
+                            |
+|       10309 | Shipped | _
+                            |
+|       10310 | Shipped | _
+                            |
+|       10311 | Shipped | Difficult to negotiate with customer. We need more marketing materials                                                                                        |
+|       10312 | Shipped | _
+                            |
+|       10313 | Shipped | Customer requested that FedEx Ground is used for this shipping
+                            |
+|       10314 | Shipped | _
+                            |
+|       10315 | Shipped | _
+                            |
+|       10316 | Shipped | Customer requested that ad materials (such as posters, pamphlets) be included in the shippment
+                            |
+|       10317 | Shipped | _
+                            |
+|       10318 | Shipped | _
+                            |
+|       10319 | Shipped | Customer requested that DHL is used for this shipping
+                            |
+|       10320 | Shipped | _
+                            |
+|       10321 | Shipped | _
+                            |
+|       10322 | Shipped | Customer has worked with some of our vendors in the past and is aware of their MSRP
+                            |
+|       10323 | Shipped | _
+                            |
+|       10324 | Shipped | _
+                            |
+|       10325 | Shipped | _
+                            |
+|       10326 | Shipped | _
+                            |
+|       10328 | Shipped | Customer very concerned about the exact color of the models. There is high risk that he may dispute the order because there is a slight color mismatch        |
+|       10329 | Shipped | _
+                            |
+|       10330 | Shipped | _
+                            |
+|       10331 | Shipped | Customer requested special shippment. The instructions were passed along to the warehouse
+                            |
+|       10332 | Shipped | _
+                            |
+|       10333 | Shipped | _
+                            |
+|       10335 | Shipped | _
+                            |
+|       10336 | Shipped | Customer requested that DHL is used for this shipping
+                            |
+|       10337 | Shipped | _                                                                                                                                                             |
+|       10338 | Shipped | _
+                            |
+|       10339 | Shipped | _
+                            |
+|       10340 | Shipped | Customer is interested in buying more Ferrari models
+                            |
+|       10341 | Shipped | _
+                            |
+|       10342 | Shipped | _
+                            |
+|       10343 | Shipped | _
+                            |
+|       10344 | Shipped | _
+                            |
+|       10345 | Shipped | _
+                            |
+|       10346 | Shipped | _
+                            |
+|       10347 | Shipped | Can we deliver the new Ford Mustang models by end-of-quarter?
+                            |
+|       10348 | Shipped | _
+                            |
+|       10349 | Shipped | _
+                            |
+|       10350 | Shipped | _
+                            |
+|       10351 | Shipped | _
+                            |
+|       10352 | Shipped | _
+                            |
+|       10353 | Shipped | _
+                            |
+|       10354 | Shipped | _
+                            |
+|       10355 | Shipped | _
+                            |
+|       10356 | Shipped | _
+                            |
+|       10357 | Shipped | _
+                            |
+|       10358 | Shipped | Customer requested that DHL is used for this shipping
+                            |
+|       10359 | Shipped | _
+                            |
+|       10360 | Shipped | _
+                            |
+|       10361 | Shipped | _
+                            |
+|       10362 | Shipped | _
+                            |
+|       10363 | Shipped | _
+                            |
+|       10364 | Shipped | _
+                            |
+|       10365 | Shipped | _
+                            |
+|       10366 | Shipped | _
+                            |
+|       10368 | Shipped | Can we renegotiate this one?
+                            |
+|       10369 | Shipped | _
+                            |
+|       10370 | Shipped | _
+                            |
+|       10371 | Shipped | _
+                            |
+|       10372 | Shipped | _
+                            |
+|       10373 | Shipped | _
+                            |
+|       10374 | Shipped | _
+                            |
+|       10375 | Shipped | _
+                            |
+|       10376 | Shipped | _
+                            |
+|       10377 | Shipped | Cautious optimism. We have happy customers here, if we can keep them well stocked.  I need all the information I can get on the planned shippments of Porches |
+|       10378 | Shipped | _
+                            |
+|       10379 | Shipped | _
+                            |
+|       10380 | Shipped | _
+                            |
+|       10381 | Shipped | _
+                            |
+|       10382 | Shipped | Custom shipping instructions sent to warehouse
+                            |
+|       10383 | Shipped | _
+                            |
+|       10384 | Shipped | _
+                            |
+|       10385 | Shipped | _
+                            |
+|       10387 | Shipped | We need to keep in close contact with their Marketing VP. He is the decision maker for all their purchases.
+                            |
+|       10388 | Shipped | _
+                            |
+|       10389 | Shipped | _
+                            |
+|       10390 | Shipped | They want to reevaluate their terms agreement with Finance.
+                            |
+|       10391 | Shipped | _
+                            |
+|       10392 | Shipped | _
+                            |
+|       10393 | Shipped | They want to reevaluate their terms agreement with Finance.
+                            |
+|       10394 | Shipped | _
+                            |
+|       10395 | Shipped | We must be cautions with this customer. Their VP of Sales resigned. Company may be heading down.
+                            |
+|       10396 | Shipped | _
+                            |
+|       10397 | Shipped | _
+                            |
+|       10398 | Shipped | _
+                            |
+|       10399 | Shipped | _
+                            |
+|       10400 | Shipped | Customer requested that DHL is used for this shipping
+                            |
+|       10402 | Shipped | _
+                            |
+|       10403 | Shipped | _
+                            |
+|       10404 | Shipped | _
+                            |
+|       10405 | Shipped | _
+                            |
+|       10408 | Shipped | _
+                            |
+|       10409 | Shipped | _
+                            |
+|       10410 | Shipped | _
+                            |
+|       10411 | Shipped | _
+                            |
+|       10412 | Shipped | _
+                            |
+|       10413 | Shipped | Customer requested that DHL is used for this shipping
+                            |
+|       10416 | Shipped | _
+                            |
+|       10418 | Shipped | _
+                            |
+|       10419 | Shipped | _
+                            |
++-------------+---------+---------------------------------------------------------------------------------------------------------------------------------------------------------------+
+303 rows in set (0.00 sec)
+
+Day 4.2 >
+
+mysql> SELECT
+    ->     employeeNumber,
+    ->     firstname,
+    ->     jobtitle,
+    ->     CASE
+    ->         WHEN jobtitle = 'President' THEN 'P'
+    ->         WHEN jobtitle LIKE '%Sales Manager%' THEN 'SM'
+    ->         WHEN jobtitle LIKE '%Sale Manager%' THEN 'SM'
+    ->         WHEN jobtitle = 'Sales Rep' THEN 'SR'
+    ->         WHEN jobtitle LIKE '%VP%' THEN 'VP'
+    ->         ELSE jobtitle -- Default case
+    ->     END AS job_title_abbreviation
+    -> FROM employees;
++----------------+-----------+----------------------+------------------------+
+| employeeNumber | firstname | jobtitle             | job_title_abbreviation |
++----------------+-----------+----------------------+------------------------+
+|           1002 | Diane     | President            | P                      |
+|           1056 | Mary      | VP Sales             | VP                     |
+|           1076 | Jeff      | VP Marketing         | VP                     |
+|           1088 | William   | Sales Manager (APAC) | SM                     |
+|           1102 | Gerard    | Sale Manager (EMEA)  | SM                     |
+|           1143 | Anthony   | Sales Manager (NA)   | SM                     |
+|           1165 | Leslie    | Sales Rep            | SR                     |
+|           1166 | Leslie    | Sales Rep            | SR                     |
+|           1188 | Julie     | Sales Rep            | SR                     |
+|           1216 | Steve     | Sales Rep            | SR                     |
+|           1286 | Foon Yue  | Sales Rep            | SR                     |
+|           1323 | George    | Sales Rep            | SR                     |
+|           1337 | Loui      | Sales Rep            | SR                     |
+|           1370 | Gerard    | Sales Rep            | SR                     |
+|           1401 | Pamela    | Sales Rep            | SR                     |
+|           1501 | Larry     | Sales Rep            | SR                     |
+|           1504 | Barry     | Sales Rep            | SR                     |
+|           1611 | Andy      | Sales Rep            | SR                     |
+|           1612 | Peter     | Sales Rep            | SR                     |
+|           1619 | Tom       | Sales Rep            | SR                     |
+|           1621 | Mami      | Sales Rep            | SR                     |
+|           1625 | Yoshimi   | Sales Rep            | SR                     |
+|           1702 | Martin    | Sales Rep            | SR                     |
++----------------+-----------+----------------------+------------------------+
+23 rows in set (0.00 sec)

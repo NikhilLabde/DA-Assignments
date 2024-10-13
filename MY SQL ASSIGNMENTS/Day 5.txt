@@ -1,0 +1,45 @@
+Day 5.1 >
+
+mysql> select YEAR(paymentDate) as Year ,MIN(amount) as Amount from payments GROUP BY YEAR(paymentDate);
++------+---------+
+| Year | Amount  |
++------+---------+
+| 2004 | 1676.14 |
+| 2003 | 1128.20 |
+| 2005 |  615.45 |
++------+---------+
+3 rows in set (0.04 sec)
+
+Day 5.2 >
+
+mysql> SELECT YEAR(orderDate) as Year, CONCAT('Q',QUARTER(orderDate)) as Quarter,COUNT(DISTINCT customerNumber) as unique_customers,COUNT(orderNumber) as total_orders FROM orders GROUP BY YEAR(orderDate), Quarter;
++------+---------+------------------+--------------+
+| Year | Quarter | unique_customers | total_orders |
++------+---------+------------------+--------------+
+| 2003 | Q1      |               14 |           14 |
+| 2003 | Q2      |               18 |           20 |
+| 2003 | Q3      |               19 |           20 |
+| 2003 | Q4      |               50 |           57 |
+| 2004 | Q1      |               25 |           27 |
+| 2004 | Q2      |               25 |           30 |
+| 2004 | Q3      |               31 |           35 |
+| 2004 | Q4      |               48 |           59 |
+| 2005 | Q1      |               25 |           37 |
+| 2005 | Q2      |               24 |           27 |
++------+---------+------------------+--------------+
+10 rows in set (0.01 sec)
+
+Day 5.3 >
+
+mysql> SELECT DATE_FORMAT(paymentDate, '%b') AS Month,CONCAT(FORMAT(SUM(amount)/1000,'0.0'),'K') AS Formatted_Amount FROM payments GROUP BY Month HAVING SUM(amount) BETWEEN 500000 AND 1000000 ORDER BY SUM(amount) DESC;
++-------+------------------+
+| Month | Formatted_Amount |
++-------+------------------+
+| Mar   | 990K             |
+| May   | 641K             |
+| Sep   | 638K             |
+| Aug   | 624K             |
+| Feb   | 503K             |
+| Oct   | 502K             |
++-------+------------------+
+6 rows in set, 6 warnings (0.01 sec)

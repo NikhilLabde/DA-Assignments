@@ -1,0 +1,37 @@
+Day 10>
+
+mysql> Create table productStatus(Year integer ,Value Integer);
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> insert into ProductStatus values (2003 , 1421),(2004 , 1052), (2005 , 523);
+Query OK, 3 rows affected (0.03 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> Select * from ProductStatus;
++------+-------+
+| Year | Value |
++------+-------+
+| 2003 |  1421 |
+| 2004 |  1052 |
+| 2005 |   523 |
++------+-------+
+3 rows in set (0.00 sec)
+
+mysql> CREATE VIEW Products_Status AS
+    -> SELECT
+    ->     Year,
+    ->     SUM(Value) AS TotalProductsSold,
+    ->     CONCAT(ROUND(SUM(Value) * 100.0 / SUM(SUM(Value)) OVER (), 0), '%') AS PercentageOfTotalValue
+    -> FROM ProductStatus
+    -> GROUP BY Year;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> Select Year,concat(TotalProductsSold, " " ,"(",PercentageOfTotalValue,")") as Value from Products_Status;
++------+------------+
+| Year | Value      |
++------+------------+
+| 2003 | 1421 (47%) |
+| 2004 | 1052 (35%) |
+| 2005 | 523 (17%)  |
++------+------------+
+3 rows in set (0.01 sec)

@@ -1,0 +1,61 @@
+Day 11.1>
+
+Stored Procedure:-
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetCustomerLevel`(IN input_customerNumber INT)
+BEGIN
+    DECLARE customer_level VARCHAR(50);
+    
+    SELECT
+        CASE
+            WHEN creditLimit > 100000 THEN 'Platinum'
+            WHEN creditLimit BETWEEN 25000 AND 100000 THEN 'Gold'
+            WHEN creditLimit < 25000 THEN 'Silver'
+            ELSE 'Unknown'
+        END INTO customer_level
+    FROM Customers
+    WHERE customerNumber = input_customerNumber;
+    
+    SELECT customer_level AS CustomerLevel;
+END
+
+Result In Command Line: Call Stored Name with Customer Numer In Bracket
+
+mysql> CALL GetCustomerLevel(114); 
++---------------+
+| CustomerLevel |
++---------------+
+| Platinum      |
++---------------+
+1 row in set (0.03 sec)
+
+Query OK, 0 rows affected (0.03 sec)
+
+Day 11.2>
+
+Stored Procedure:-
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_country_payments`(p_year int, p_country varchar(50))
+BEGIN
+select year(paymentdate) as Paymentyear, country as customercountry, concat(format(sum(amount)/ 1000,0), 'K') As TotalAmount from payments
+join
+customers on 
+payments.customernumber = customers.customernumber
+where
+year(paymentdate) = p_year and country = p_country
+group by paymentyear, customercountry;
+END
+
+Result In Command Line: Call Stored Name Bracket. Ex.(2003,'France')
+
+mysql> call get_country_payments(2003,'France');
++-------------+-----------------+-------------+
+| Paymentyear | customercountry | TotalAmount |
++-------------+-----------------+-------------+
+|        2003 | France          | 283K        |
++-------------+-----------------+-------------+
+1 row in set (0.10 sec)
+
+Query OK, 0 rows affected (0.10 sec)
+
+

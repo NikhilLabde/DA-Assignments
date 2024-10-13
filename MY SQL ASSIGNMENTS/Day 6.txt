@@ -1,0 +1,79 @@
+Day 6.1 >
+
+mysql> create table Journey(Bus_ID integer NOT NULL,Bus_Name varchar(45) NOT NULL,Source_Station varchar(45) NOT NULL,Email varchar (45) UNIQUE);
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> desc journey;
++----------------+-------------+------+-----+---------+-------+
+| Field          | Type        | Null | Key | Default | Extra |
++----------------+-------------+------+-----+---------+-------+
+| Bus_ID         | int         | NO   |     | NULL    |       |
+| Bus_Name       | varchar(45) | NO   |     | NULL    |       |
+| Source_Station | varchar(45) | NO   |     | NULL    |       |
+| Email          | varchar(45) | YES  | UNI | NULL    |       |
++----------------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+Day 6.2>
+
+mysql> create table Vendor(Vendor_ID integer UNIQUE NOT NULL,Name varchar(45) NOT NULL,Email varchar(45) UNIQUE,Country
+    -> varchar(45) DEFAULT "N/A");
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> desc Vendor;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| Vendor_ID | int         | NO   | PRI | NULL    |       |
+| Name      | varchar(45) | NO   |     | NULL    |       |
+| Email     | varchar(45) | YES  | UNI | NULL    |       |
+| Country   | varchar(45) | YES  |     | N/A     |       |
++-----------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+Day 6.3>
+
+mysql> Create table movies(Movie_ID integer UNIQUE NOT NULL,Name varchar (45) NOT NULL,Release_Year varchar (10) DEFAULT "-",Cast varchar(45) NOT NULL,Gender ENUM("MALE","FEMALE"),No_Of_Shows integer check(No_Of_Shows > 0));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> desc Movies;
++--------------+-----------------------+------+-----+---------+-------+
+| Field        | Type                  | Null | Key | Default | Extra |
++--------------+-----------------------+------+-----+---------+-------+
+| Movie_ID     | int                   | NO   | PRI | NULL    |       |
+| Name         | varchar(45)           | NO   |     | NULL    |       |
+| Release_Year | varchar(10)           | YES  |     | -       |       |
+| Cast         | varchar(45)           | NO   |     | NULL    |       |
+| Gender       | enum('MALE','FEMALE') | YES  |     | NULL    |       |
+| No_Of_Shows  | int                   | YES  |     | NULL    |       |
++--------------+-----------------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+Day 6.4>
+
+mysql> CREATE TABLE Suppliers (supplier_id INT AUTO_INCREMENT PRIMARY KEY,supplier_name VARCHAR(255),location VARCHAR(255));
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> desc Suppliers;
++---------------+--------------+------+-----+---------+----------------+
+| Field         | Type         | Null | Key | Default | Extra          |
++---------------+--------------+------+-----+---------+----------------+
+| supplier_id   | int          | NO   | PRI | NULL    | auto_increment |
+| supplier_name | varchar(255) | YES  |     | NULL    |                |
+| location      | varchar(255) | YES  |     | NULL    |                |
++---------------+--------------+------+-----+---------+----------------+
+3 rows in set (0.00 sec)
+
+mysql> create table Product(product_id integer AUTO_INCREMENT PRIMARY KEY,product_name varchar(255) UNIQUE NOT NULL,description TEXT,supplier_id INT, FOREIGN KEY (supplier_id) REFERENCES Suppliers(supplier_id));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> desc product;
++--------------+--------------+------+-----+---------+----------------+
+| Field        | Type         | Null | Key | Default | Extra          |
++--------------+--------------+------+-----+---------+----------------+
+| product_id   | int          | NO   | PRI | NULL    | auto_increment |
+| product_name | varchar(255) | NO   | UNI | NULL    |                |
+| description  | text         | YES  |     | NULL    |                |
+| supplier_id  | int          | YES  | MUL | NULL    |                |
++--------------+--------------+------+-----+---------+----------------+
+4 rows in set (0.00 sec)

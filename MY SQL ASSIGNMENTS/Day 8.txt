@@ -1,0 +1,23 @@
+Day 8>
+mysql> create table facility ( Facility_ID INT, Name VARCHAR(255), State VARCHAR(255), Country VARCHAR(255) );
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> alter table facility MODIFY COLUMN Facility_ID INT AUTO_INCREMENT PRIMARY KEY FIRST;
+Query OK, 0 rows affected (0.07 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table facility ADD COLUMN city VARCHAR(255) NOT NULL AFTER Name;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc facility;
++-------------+--------------+------+-----+---------+----------------+
+| Field       | Type         | Null | Key | Default | Extra          |
++-------------+--------------+------+-----+---------+----------------+
+| Facility_ID | int          | NO   | PRI | NULL    | auto_increment |
+| Name        | varchar(255) | YES  |     | NULL    |                |
+| city        | varchar(255) | NO   |     | NULL    |                |
+| State       | varchar(255) | YES  |     | NULL    |                |
+| Country     | varchar(255) | YES  |     | NULL    |                |
++-------------+--------------+------+-----+---------+----------------+
+5 rows in set (0.01 sec)

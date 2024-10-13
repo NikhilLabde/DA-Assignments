@@ -1,0 +1,66 @@
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+|  sql practice 1    |
+| classicmodels      |
+| information_schema |
+| mysql              |
+| performance_schema |
+| practice           |
+| sakila             |
+| sql assignment     |
+| sys                |
+| world              |
++--------------------+
+10 rows in set (0.00 sec)
+
+mysql> use `classicmodels`;
+Database changed
+
+Day 3.1 >
+
+mysql> select customerNumber,customername,state,creditlimit from customers where state is NOT NULL AND creditlimit >50000 and creditlimit < 100000 order by creditlimit desc;
++----------------+-----------------------------------+---------------+-------------+
+| customerNumber | customername                      | state         | creditlimit |
++----------------+-----------------------------------+---------------+-------------+
+|            455 | Super Scale Inc.                  | CT            |    95400.00 |
+|            320 | Mini Creations Ltd.               | MA            |    94500.00 |
+|            398 | Tokyo Collectables, Ltd           | Tokyo         |    94400.00 |
+|            240 | giftsbymail.co.uk                 | Isle of Wight |    93900.00 |
+|            282 | Souveniers And Things Co.         | NSW           |    93300.00 |
+|            205 | Toys4GrownUps.com                 | CA            |    90700.00 |
+|            202 | Canadian Gift Exchange Network    | BC            |    90300.00 |
+|            260 | Royal Canadian Collectables, Ltd. | BC            |    89600.00 |
+|            462 | FunGiftIdeas.com                  | MA            |    85800.00 |
+|            495 | Diecast Collectables              | MA            |    85100.00 |
+|            161 | Technics Stores Inc.              | CA            |    84600.00 |
+|            175 | Gift Depot Inc.                   | CT            |    84300.00 |
+|            177 | Osaka Souveniers Co.              | Osaka         |    81200.00 |
+|            339 | Classic Gift Ideas, Inc           | PA            |    81100.00 |
+|            450 | The Sharp Gifts Warehouse         | CA            |    77600.00 |
+|            181 | Vitachrome Inc.                   | NY            |    76400.00 |
+|            486 | Motor Mint Distributors Inc.      | PA            |    72600.00 |
+|            112 | Signal Gift Stores                | NV            |    71800.00 |
+|            379 | Collectables For Less Inc.        | MA            |    70700.00 |
+|            204 | Online Mini Collectables          | MA            |    68700.00 |
+|            424 | Classic Legends Inc.              | NY            |    67500.00 |
+|            129 | Mini Wheels Co.                   | CA            |    64600.00 |
+|            471 | Australian Collectables, Ltd      | Victoria      |    60300.00 |
+|            487 | Signal Collectibles Ltd.          | CA            |    60300.00 |
+|            347 | Men 'R' US Retailers, Ltd.        | CA            |    57700.00 |
+|            475 | West Coast Collectables Co.       | CA            |    55400.00 |
+|            333 | Australian Gift Network, Co       | Queensland    |    51600.00 |
++----------------+-----------------------------------+---------------+-------------+
+27 rows in set (0.01 sec)
+
+Day 3.2 >
+
+mysql> select DISTINCT productline from products where productline like '%cars' ;
++--------------+
+| productline  |
++--------------+
+| Classic Cars |
+| Vintage Cars |
++--------------+
+2 rows in set (0.01 sec)

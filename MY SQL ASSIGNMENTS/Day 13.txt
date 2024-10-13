@@ -1,0 +1,572 @@
+Day 13.1>
+mysql> SELECT customerNumber, customerName FROM Customers WHERE customerNumber NOT IN (SELECT customerNumber FROM Orders);
++----------------+--------------------------------+
+| customerNumber | customerName                   |
++----------------+--------------------------------+
+|            125 | Havel & Zbyszek Co             |
+|            168 | American Souvenirs Inc         |
+|            169 | Porto Imports Co.              |
+|            206 | Asian Shopping Network, Co     |
+|            223 | Natürlich Autos                |
+|            237 | ANG Resellers                  |
+|            247 | Messner Shopping Network       |
+|            273 | Franken Gifts, Co              |
+|            293 | BG&E Collectables              |
+|            303 | Schuyler Imports               |
+|            307 | Der Hund Imports               |
+|            335 | Cramer Spezialitäten, Ltd      |
+|            348 | Asian Treasures, Inc.          |
+|            356 | SAR Distributors, Co           |
+|            361 | Kommission Auto                |
+|            369 | Lisboa Souveniers, Inc         |
+|            376 | Precious Collectables          |
+|            409 | Stuttgart Collectable Exchange |
+|            443 | Feuer Online Stores, Inc       |
+|            459 | Warburg Exchange               |
+|            465 | Anton Designs, Ltd.            |
+|            477 | Mit Vergnügen & Co.            |
+|            480 | Kremlin Collectables, Co.      |
+|            481 | Raanan Stores, Inc             |
++----------------+--------------------------------+
+24 rows in set (0.03 sec)
+
+Day 13.2>
+
+Create a temporary table to store the results of the left outer join :>
+
+mysql> CREATE TEMPORARY TABLE LeftJoinResult AS
+    -> SELECT
+    ->     c.customerNumber,
+    ->     c.customerName,
+    ->     COUNT(o.orderNumber) AS OrderCount
+    -> FROM
+    ->     Customers c
+    -> LEFT JOIN
+    ->     Orders o ON c.customerNumber = o.customerNumber
+    -> GROUP BY
+    ->     c.customerNumber, c.customerName;
+Query OK, 122 rows affected (0.01 sec)
+Records: 122  Duplicates: 0  Warnings: 0
+
+Create a temporary table to store the results of the right outer join
+
+mysql> CREATE TEMPORARY TABLE RightJoinResult AS
+    -> SELECT
+    ->     o.customerNumber,
+    ->     c.customerName,
+    ->     COUNT(o.orderNumber) AS OrderCount
+    -> FROM
+    ->     Customers c
+    -> RIGHT JOIN
+    ->     Orders o ON c.customerNumber = o.customerNumber
+    -> GROUP BY
+    ->     o.customerNumber, c.customerName;
+Query OK, 98 rows affected (0.01 sec)
+Records: 98  Duplicates: 0  Warnings: 0
+
+Combine the results of left and right joins using UNION
+
+mysql> SELECT * FROM LeftJoinResult
+    -> UNION
+    -> SELECT * FROM RightJoinResult;
++----------------+------------------------------------+------------+
+| customerNumber | customerName                       | OrderCount |
++----------------+------------------------------------+------------+
+|            103 | Atelier graphique                  |          3 |
+|            112 | Signal Gift Stores                 |          3 |
+|            114 | Australian Collectors, Co.         |          5 |
+|            119 | La Rochelle Gifts                  |          4 |
+|            121 | Baane Mini Imports                 |          4 |
+|            124 | Mini Gifts Distributors Ltd.       |         17 |
+|            125 | Havel & Zbyszek Co                 |          0 |
+|            128 | Blauer See Auto, Co.               |          4 |
+|            129 | Mini Wheels Co.                    |          3 |
+|            131 | Land of Toys Inc.                  |          4 |
+|            141 | Euro+ Shopping Channel             |         26 |
+|            144 | Volvo Model Replicas, Co           |          4 |
+|            145 | Danish Wholesale Imports           |          5 |
+|            146 | Saveley & Henriot, Co.             |          3 |
+|            148 | Dragon Souveniers, Ltd.            |          5 |
+|            151 | Muscle Machine Inc                 |          4 |
+|            157 | Diecast Classics Inc.              |          4 |
+|            161 | Technics Stores Inc.               |          4 |
+|            166 | Handji Gifts& Co                   |          4 |
+|            167 | Herkku Gifts                       |          3 |
+|            168 | American Souvenirs Inc             |          0 |
+|            169 | Porto Imports Co.                  |          0 |
+|            171 | Daedalus Designs Imports           |          2 |
+|            172 | La Corne D'abondance, Co.          |          3 |
+|            173 | Cambridge Collectables Co.         |          2 |
+|            175 | Gift Depot Inc.                    |          3 |
+|            177 | Osaka Souveniers Co.               |          2 |
+|            181 | Vitachrome Inc.                    |          3 |
+|            186 | Toys of Finland, Co.               |          3 |
+|            187 | AV Stores, Co.                     |          3 |
+|            189 | Clover Collections, Co.            |          2 |
+|            198 | Auto-Moto Classics Inc.            |          3 |
+|            201 | UK Collectables, Ltd.              |          3 |
+|            202 | Canadian Gift Exchange Network     |          2 |
+|            204 | Online Mini Collectables           |          2 |
+|            205 | Toys4GrownUps.com                  |          3 |
+|            206 | Asian Shopping Network, Co         |          0 |
+|            209 | Mini Caravy                        |          3 |
+|            211 | King Kong Collectables, Co.        |          2 |
+|            216 | Enaco Distributors                 |          3 |
+|            219 | Boards & Toys Co.                  |          2 |
+|            223 | Natürlich Autos                    |          0 |
+|            227 | Heintze Collectables               |          2 |
+|            233 | Québec Home Shopping Network       |          3 |
+|            237 | ANG Resellers                      |          0 |
+|            239 | Collectable Mini Designs Co.       |          2 |
+|            240 | giftsbymail.co.uk                  |          2 |
+|            242 | Alpha Cognac                       |          3 |
+|            247 | Messner Shopping Network           |          0 |
+|            249 | Amica Models & Co.                 |          2 |
+|            250 | Lyon Souveniers                    |          3 |
+|            256 | Auto Associés & Cie.               |          2 |
+|            259 | Toms Spezialitäten, Ltd            |          2 |
+|            260 | Royal Canadian Collectables, Ltd.  |          2 |
+|            273 | Franken Gifts, Co                  |          0 |
+|            276 | Anna's Decorations, Ltd            |          4 |
+|            278 | Rovelli Gifts                      |          3 |
+|            282 | Souveniers And Things Co.          |          4 |
+|            286 | Marta's Replicas Co.               |          2 |
+|            293 | BG&E Collectables                  |          0 |
+|            298 | Vida Sport, Ltd                    |          2 |
+|            299 | Norway Gifts By Mail, Co.          |          2 |
+|            303 | Schuyler Imports                   |          0 |
+|            307 | Der Hund Imports                   |          0 |
+|            311 | Oulu Toy Supplies, Inc.            |          3 |
+|            314 | Petit Auto                         |          3 |
+|            319 | Mini Classics                      |          2 |
+|            320 | Mini Creations Ltd.                |          3 |
+|            321 | Corporate Gift Ideas Co.           |          4 |
+|            323 | Down Under Souveniers, Inc         |          5 |
+|            324 | Stylish Desk Decors, Co.           |          3 |
+|            328 | Tekni Collectables Inc.            |          3 |
+|            333 | Australian Gift Network, Co        |          3 |
+|            334 | Suominen Souveniers                |          3 |
+|            335 | Cramer Spezialitäten, Ltd          |          0 |
+|            339 | Classic Gift Ideas, Inc            |          2 |
+|            344 | CAF Imports                        |          2 |
+|            347 | Men 'R' US Retailers, Ltd.         |          2 |
+|            348 | Asian Treasures, Inc.              |          0 |
+|            350 | Marseille Mini Autos               |          3 |
+|            353 | Reims Collectables                 |          5 |
+|            356 | SAR Distributors, Co               |          0 |
+|            357 | GiftsForHim.com                    |          3 |
+|            361 | Kommission Auto                    |          0 |
+|            362 | Gifts4AllAges.com                  |          3 |
+|            363 | Online Diecast Creations Co.       |          3 |
+|            369 | Lisboa Souveniers, Inc             |          0 |
+|            376 | Precious Collectables              |          0 |
+|            379 | Collectables For Less Inc.         |          3 |
+|            381 | Royale Belge                       |          4 |
+|            382 | Salzburg Collectables              |          4 |
+|            385 | Cruz & Sons Co.                    |          3 |
+|            386 | L'ordine Souveniers                |          3 |
+|            398 | Tokyo Collectables, Ltd            |          4 |
+|            406 | Auto Canal+ Petit                  |          3 |
+|            409 | Stuttgart Collectable Exchange     |          0 |
+|            412 | Extreme Desk Decorations, Ltd      |          3 |
+|            415 | Bavarian Collectables Imports, Co. |          1 |
+|            424 | Classic Legends Inc.               |          3 |
+|            443 | Feuer Online Stores, Inc           |          0 |
+|            447 | Gift Ideas Corp.                   |          3 |
+|            448 | Scandinavian Gift Ideas            |          3 |
+|            450 | The Sharp Gifts Warehouse          |          4 |
+|            452 | Mini Auto Werke                    |          3 |
+|            455 | Super Scale Inc.                   |          2 |
+|            456 | Microscale Inc.                    |          2 |
+|            458 | Corrida Auto Replicas, Ltd         |          3 |
+|            459 | Warburg Exchange                   |          0 |
+|            462 | FunGiftIdeas.com                   |          3 |
+|            465 | Anton Designs, Ltd.                |          0 |
+|            471 | Australian Collectables, Ltd       |          3 |
+|            473 | Frau da Collezione                 |          2 |
+|            475 | West Coast Collectables Co.        |          2 |
+|            477 | Mit Vergnügen & Co.                |          0 |
+|            480 | Kremlin Collectables, Co.          |          0 |
+|            481 | Raanan Stores, Inc                 |          0 |
+|            484 | Iberia Gift Imports, Corp.         |          2 |
+|            486 | Motor Mint Distributors Inc.       |          3 |
+|            487 | Signal Collectibles Ltd.           |          2 |
+|            489 | Double Decker Gift Stores, Ltd     |          2 |
+|            495 | Diecast Collectables               |          2 |
+|            496 | Kelly's Gift Shop                  |          4 |
++----------------+------------------------------------+------------+
+122 rows in set (0.00 sec)
+
+Day 13.3>
+
+mysql> select * from orderdetails;
++-------------+-------------+-----------------+-----------+-----------------+
+| orderNumber | productCode | quantityOrdered | priceEach | orderLineNumber |
++-------------+-------------+-----------------+-----------+-----------------+
+|       10100 | S18_1749    |              30 |    136.00 |               3 |
+|       10100 | S18_2248    |              50 |     55.09 |               2 |
+|       10100 | S18_4409    |              22 |     75.46 |               4 |
+|       10100 | S24_3969    |              49 |     35.29 |               1 |
+|       10101 | S18_2325    |              25 |    108.06 |               4 |
+|       10101 | S18_2795    |              26 |    167.06 |               1 |
+|       10101 | S24_1937    |              45 |     32.53 |               3 |
+|       10101 | S24_2022    |              46 |     44.35 |               2 |
+|       10102 | S18_1342    |              39 |     95.55 |               2 |
+|       10102 | S18_1367    |              41 |     43.13 |               1 |
+|       10103 | S10_1949    |              26 |    214.30 |              11 |
+|       10103 | S10_4962    |              42 |    119.67 |               4 |
++-------------+-------------+-----------------+-----------+-----------------+
+2996 rows in set (0.01 sec)
+
+
+mysql> SELECT
+    ->     OrderNumber,Quantityordered AS SecondHighestQuantity
+    -> FROM
+    ->    (SELECT OrderNumber,Quantityordered,ROW_NUMBER() OVER (PARTITION BY OrderNumber ORDER BY Quantityordered DESC) AS rn
+    -> FROM Orderdetails) AS RankedData WHERE rn = 2;
++-------------+-----------------------+
+| OrderNumber | SecondHighestQuantity |
++-------------+-----------------------+
+|       10100 |                    49 |
+|       10101 |                    45 |
+|       10102 |                    39 |
+|       10103 |                    45 |
+|       10104 |                    44 |
+|       10105 |                    50 |
+|       10106 |                    49 |
+|       10107 |                    38 |
+|       10108 |                    44 |
+|       10109 |                    46 |
+|       10110 |                    46 |
+|       10111 |                    43 |
+|       10112 |                    23 |
+|       10113 |                    49 |
+|       10114 |                    45 |
+|       10115 |                    46 |
+|       10117 |                    45 |
+|       10119 |                    43 |
+|       10120 |                    47 |
+|       10121 |                    44 |
+|       10122 |                    43 |
+|       10123 |                    46 |
+|       10124 |                    46 |
+|       10125 |                    32 |
+|       10126 |                    46 |
+|       10127 |                    46 |
+|       10128 |                    41 |
+|       10129 |                    45 |
+|       10130 |                    33 |
+|       10131 |                    40 |
+|       10133 |                    49 |
+|       10134 |                    41 |
+|       10135 |                    48 |
+|       10136 |                    36 |
+|       10137 |                    37 |
+|       10138 |                    47 |
+|       10139 |                    46 |
+|       10140 |                    46 |
+|       10141 |                    44 |
+|       10142 |                    47 |
+|       10143 |                    46 |
+|       10145 |                    47 |
+|       10146 |                    29 |
+|       10147 |                    37 |
+|       10148 |                    47 |
+|       10149 |                    49 |
+|       10150 |                    49 |
+|       10151 |                    43 |
+|       10152 |                    33 |
+|       10153 |                    50 |
+|       10154 |                    31 |
+|       10155 |                    44 |
+|       10156 |                    20 |
+|       10157 |                    40 |
+|       10159 |                    49 |
+|       10160 |                    46 |
+|       10161 |                    43 |
+|       10162 |                    48 |
+|       10163 |                    43 |
+|       10164 |                    49 |
+|       10165 |                    48 |
+|       10166 |                    29 |
+|       10167 |                    46 |
+|       10168 |                    49 |
+|       10169 |                    38 |
+|       10170 |                    41 |
+|       10171 |                    36 |
+|       10172 |                    42 |
+|       10173 |                    43 |
+|       10174 |                    48 |
+|       10175 |                    48 |
+|       10176 |                    47 |
+|       10177 |                    45 |
+|       10178 |                    45 |
+|       10179 |                    45 |
+|       10180 |                    44 |
+|       10181 |                    44 |
+|       10182 |                    47 |
+|       10183 |                    47 |
+|       10184 |                    48 |
+|       10185 |                    47 |
+|       10186 |                    36 |
+|       10187 |                    45 |
+|       10188 |                    45 |
+|       10190 |                    42 |
+|       10191 |                    44 |
+|       10192 |                    47 |
+|       10193 |                    44 |
+|       10194 |                    45 |
+|       10195 |                    49 |
+|       10196 |                    49 |
+|       10197 |                    50 |
+|       10198 |                    43 |
+|       10199 |                    38 |
+|       10200 |                    39 |
+|       10201 |                    39 |
+|       10202 |                    50 |
+|       10203 |                    47 |
+|       10204 |                    47 |
+|       10205 |                    40 |
+|       10206 |                    37 |
+|       10207 |                    49 |
+|       10208 |                    46 |
+|       10209 |                    43 |
+|       10210 |                    46 |
+|       10211 |                    46 |
+|       10212 |                    46 |
+|       10213 |                    27 |
+|       10214 |                    49 |
+|       10215 |                    49 |
+|       10217 |                    39 |
+|       10218 |                    22 |
+|       10219 |                    43 |
+|       10220 |                    37 |
+|       10221 |                    39 |
+|       10222 |                    49 |
+|       10223 |                    47 |
+|       10224 |                    43 |
+|       10225 |                    46 |
+|       10226 |                    46 |
+|       10227 |                    46 |
+|       10228 |                    33 |
+|       10229 |                    50 |
+|       10230 |                    46 |
+|       10231 |                    42 |
+|       10232 |                    48 |
+|       10233 |                    36 |
+|       10234 |                    48 |
+|       10235 |                    41 |
+|       10236 |                    23 |
+|       10237 |                    32 |
+|       10238 |                    47 |
+|       10239 |                    46 |
+|       10240 |                    37 |
+|       10241 |                    44 |
+|       10243 |                    33 |
+|       10244 |                    40 |
+|       10245 |                    44 |
+|       10246 |                    46 |
+|       10247 |                    48 |
+|       10248 |                    42 |
+|       10249 |                    40 |
+|       10250 |                    45 |
+|       10251 |                    50 |
+|       10252 |                    47 |
+|       10253 |                    40 |
+|       10254 |                    49 |
+|       10255 |                    24 |
+|       10256 |                    29 |
+|       10257 |                    49 |
+|       10258 |                    41 |
+|       10259 |                    46 |
+|       10260 |                    44 |
+|       10261 |                    44 |
+|       10262 |                    49 |
+|       10263 |                    47 |
+|       10264 |                    47 |
+|       10265 |                    45 |
+|       10266 |                    47 |
+|       10267 |                    43 |
+|       10268 |                    49 |
+|       10269 |                    32 |
+|       10270 |                    44 |
+|       10271 |                    50 |
+|       10272 |                    43 |
+|       10273 |                    48 |
+|       10274 |                    40 |
+|       10275 |                    45 |
+|       10276 |                    48 |
+|       10278 |                    39 |
+|       10279 |                    48 |
+|       10280 |                    46 |
+|       10281 |                    44 |
+|       10282 |                    43 |
+|       10283 |                    46 |
+|       10284 |                    45 |
+|       10285 |                    47 |
+|       10287 |                    44 |
+|       10288 |                    48 |
+|       10289 |                    43 |
+|       10290 |                    26 |
+|       10291 |                    48 |
+|       10292 |                    44 |
+|       10293 |                    46 |
+|       10295 |                    44 |
+|       10296 |                    42 |
+|       10297 |                    32 |
+|       10298 |                    32 |
+|       10299 |                    47 |
+|       10300 |                    41 |
+|       10301 |                    48 |
+|       10302 |                    48 |
+|       10303 |                    24 |
+|       10304 |                    46 |
+|       10305 |                    45 |
+|       10306 |                    46 |
+|       10307 |                    39 |
+|       10308 |                    47 |
+|       10309 |                    41 |
+|       10310 |                    49 |
+|       10311 |                    45 |
+|       10312 |                    48 |
+|       10313 |                    40 |
+|       10314 |                    45 |
+|       10315 |                    40 |
+|       10316 |                    48 |
+|       10318 |                    48 |
+|       10319 |                    45 |
+|       10320 |                    35 |
+|       10321 |                    44 |
+|       10322 |                    48 |
+|       10323 |                    33 |
+|       10324 |                    48 |
+|       10325 |                    44 |
+|       10326 |                    41 |
+|       10327 |                    43 |
+|       10328 |                    47 |
+|       10329 |                    45 |
+|       10330 |                    42 |
+|       10331 |                    44 |
+|       10332 |                    46 |
+|       10333 |                    39 |
+|       10334 |                    46 |
+|       10335 |                    40 |
+|       10336 |                    49 |
+|       10337 |                    36 |
+|       10338 |                    41 |
+|       10339 |                    55 |
+|       10340 |                    55 |
+|       10341 |                    55 |
+|       10342 |                    55 |
+|       10343 |                    36 |
+|       10344 |                    40 |
+|       10346 |                    26 |
+|       10347 |                    48 |
+|       10348 |                    47 |
+|       10349 |                    48 |
+|       10350 |                    44 |
+|       10351 |                    38 |
+|       10352 |                    49 |
+|       10353 |                    46 |
+|       10354 |                    42 |
+|       10355 |                    41 |
+|       10356 |                    48 |
+|       10357 |                    49 |
+|       10358 |                    44 |
+|       10359 |                    48 |
+|       10360 |                    49 |
+|       10361 |                    44 |
+|       10362 |                    23 |
+|       10363 |                    46 |
+|       10365 |                    30 |
+|       10366 |                    34 |
+|       10367 |                    46 |
+|       10368 |                    46 |
+|       10369 |                    44 |
+|       10370 |                    35 |
+|       10371 |                    48 |
+|       10372 |                    44 |
+|       10373 |                    46 |
+|       10374 |                    42 |
+|       10375 |                    49 |
+|       10377 |                    39 |
+|       10378 |                    46 |
+|       10379 |                    32 |
+|       10380 |                    44 |
+|       10381 |                    41 |
+|       10382 |                    48 |
+|       10383 |                    44 |
+|       10384 |                    43 |
+|       10385 |                    25 |
+|       10386 |                    50 |
+|       10388 |                    50 |
+|       10389 |                    49 |
+|       10390 |                    49 |
+|       10391 |                    42 |
+|       10392 |                    36 |
+|       10393 |                    38 |
+|       10394 |                    37 |
+|       10395 |                    45 |
+|       10396 |                    45 |
+|       10397 |                    36 |
+|       10398 |                    47 |
+|       10399 |                    57 |
+|       10400 |                    58 |
+|       10401 |                    77 |
+|       10402 |                    55 |
+|       10403 |                    66 |
+|       10404 |                    77 |
+|       10405 |                    76 |
+|       10406 |                    61 |
+|       10407 |                    76 |
+|       10409 |                     6 |
+|       10410 |                    56 |
+|       10411 |                    40 |
+|       10412 |                    60 |
+|       10413 |                    49 |
+|       10414 |                    56 |
+|       10415 |                    42 |
+|       10416 |                    47 |
+|       10417 |                    56 |
+|       10418 |                    50 |
+|       10419 |                    55 |
+|       10420 |                    60 |
+|       10421 |                    35 |
+|       10422 |                    25 |
+|       10423 |                    28 |
+|       10424 |                    50 |
+|       10425 |                    49 |
++-------------+-----------------------+
+309 rows in set (0.03 sec)
+
+Day 13.4>
+
+mysql> select
+    ->     max(productcount) as max,
+    ->     min(productcount) as min
+    -> from (select ordernumber,count(*) as productcount from orderdetails group by ordernumber) as counts;
++------+------+
+| max  | min  |
++------+------+
+|   18 |    1 |
++------+------+
+1 row in set (0.01 sec)
+
+Day 13.5>
+
+mysql> SELECT ProductLine, COUNT(*) AS Count
+    -> FROM Products
+    -> WHERE BuyPrice > (SELECT AVG(BuyPrice) FROM Products)
+    -> GROUP BY ProductLine;
++------------------+-------+
+| ProductLine      | Count |
++------------------+-------+
+| Classic Cars     |    24 |
+| Motorcycles      |     6 |
+| Planes           |     5 |
+| Ships            |     1 |
+| Trains           |     1 |
+| Trucks and Buses |     7 |
+| Vintage Cars     |    10 |
++------------------+-------+
+7 rows in set (0.03 sec)

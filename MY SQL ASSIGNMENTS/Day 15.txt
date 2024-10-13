@@ -1,0 +1,41 @@
+Day 15>
+mysql> create table Emp_BIT(Name varchar(255) not null,Occupation varchar(255) not null,Working_date date,Working_hours int);
+
+mysql> insert into Emp_BIT values
+('Robin', 'Scientist', '2020-10-04', 12),  
+('Warner', 'Engineer', '2020-10-04', 10),  
+('Peter', 'Actor', '2020-10-04', 13),  
+('Marco', 'Doctor', '2020-10-04', 14),  
+('Brayden', 'Teacher', '2020-10-04', 12),  
+('Antonio', 'Business', '2020-10-04', 11),
+('Yash', 'Scientist', '2020-10-05', -12);
+
+DELIMITER $$
+CREATE TRIGGER before_insert_working_hours
+BEFORE INSERT ON Emp_BIT
+FOR EACH ROW
+BEGIN
+  IF NEW.working_hours < 0 THEN
+    SET NEW.working_hours = -NEW.working_hours;
+  END IF;
+END $$
+DELIMITER ;
+
+mysql> insert into Emp_BIT values('Rishi', 'Scientist', '2020-10-05', -12);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> Select * from Emp_BIT;
++---------+------------+--------------+---------------+
+| Name    | Occupation | Working_date | Working_hours |
++---------+------------+--------------+---------------+
+| Robin   | Scientist  | 2020-10-04   |            12 |
+| Warner  | Engineer   | 2020-10-04   |            10 |
+| Peter   | Actor      | 2020-10-04   |            13 |
+| Marco   | Doctor     | 2020-10-04   |            14 |
+| Brayden | Teacher    | 2020-10-04   |            12 |
+| Antonio | Business   | 2020-10-04   |            11 |
+| Yash    | Scientist  | 2020-10-05   |           -12 |
+| Rishi   | Scientist  | 2020-10-05   |            12 |
++---------+------------+--------------+---------------+
+32 rows in set (0.00 sec)
+

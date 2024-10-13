@@ -1,0 +1,47 @@
+Day 9>
+
+mysql> create table university ( ID INT, Name VARCHAR(255) );
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> INSERT INTO university
+    ->      VALUES
+    ->      (1, "       Pune          University     "),
+    ->      (2, "  Mumbai          University     "),
+    ->      (3, "     Delhi   University     "),
+    ->      (4, "Madras University"),
+    ->      (5, "Nagpur University");
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> update university set name = replace(name, ' ' , '' );
+Query OK, 5 rows affected (0.01 sec)
+Rows matched: 5  Changed: 5  Warnings: 0
+
+mysql> select * from university;
++------+------------------+
+| ID   | Name             |
++------+------------------+
+|    1 | PuneUniversity   |
+|    2 | MumbaiUniversity |
+|    3 | DelhiUniversity  |
+|    4 | MadrasUniversity |
+|    5 | NagpurUniversity |
++------+------------------+
+5 rows in set (0.00 sec)
+
+mysql> UPDATE university SET Name = REPLACE(Name, 'University', ' University');
+Query OK, 5 rows affected (0.03 sec)
+Rows matched: 5  Changed: 5  Warnings: 0
+
+mysql> select * from university;
++------+-------------------+
+| ID   | Name              |
++------+-------------------+
+|    1 | Pune University   |
+|    2 | Mumbai University |
+|    3 | Delhi University  |
+|    4 | Madras University |
+|    5 | Nagpur University |
++------+-------------------+
+5 rows in set (0.00 sec)
+

@@ -1,0 +1,28 @@
+Day 14>
+
+mysql> Create table Emp_EH(
+EmpID int primary key,
+EmpName varchar(255),
+EmailAddress varchar(255));
+
+mysql> desc Emp_EH;
+
+PROCEDURE>
+
+DELIMITER //
+CREATE PROCEDURE InsertEmpDataWithExceptionHandling(
+    IN p_EmpID INT,
+    IN p_EmpName VARCHAR(255),
+    IN p_EmailAddress VARCHAR(255)
+)
+BEGIN
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Error occurred';
+    END;
+
+    INSERT INTO Emp_EH (EmpID, EmpName, EmailAddress) VALUES (p_EmpID, p_EmpName, p_EmailAddress);
+END;
+//
+DELIMITER ;
